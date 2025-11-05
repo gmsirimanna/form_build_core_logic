@@ -103,10 +103,10 @@ class FormBuilderCheckbox extends FormBuilderFieldDecoration<bool> {
     super.enabled,
     super.onSaved,
     super.autovalidateMode = AutovalidateMode.disabled,
-    super.onReset,
+    //super.onReset,
     super.focusNode,
     super.restorationId,
-    super.errorBuilder,
+    //super.errorBuilder,
     required this.title,
     this.activeColor,
     this.autofocus = false,
@@ -134,11 +134,12 @@ class FormBuilderCheckbox extends FormBuilderFieldDecoration<bool> {
                title: title,
                subtitle: subtitle,
                value: tristate ? state.value : (state.value ?? false),
-               onChanged: state.enabled
-                   ? (value) {
-                       state.didChange(value);
-                     }
-                   : null,
+               onChanged:
+                   state.enabled
+                       ? (value) {
+                         state.didChange(value);
+                       }
+                       : null,
                checkColor: checkColor,
                activeColor: activeColor,
                secondary: secondary,
@@ -156,12 +157,10 @@ class FormBuilderCheckbox extends FormBuilderFieldDecoration<bool> {
        );
 
   @override
-  FormBuilderFieldDecorationState<FormBuilderCheckbox, bool> createState() =>
-      _FormBuilderCheckboxState();
+  FormBuilderFieldDecorationState<FormBuilderCheckbox, bool> createState() => _FormBuilderCheckboxState();
 }
 
-class _FormBuilderCheckboxState
-    extends FormBuilderFieldDecorationState<FormBuilderCheckbox, bool> {
+class _FormBuilderCheckboxState extends FormBuilderFieldDecorationState<FormBuilderCheckbox, bool> {
   void handleFocusChange() {
     setState(() {});
   }

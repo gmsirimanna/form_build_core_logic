@@ -217,42 +217,30 @@ class _GroupedRadioState<T> extends State<GroupedRadio<T?>> {
       widgetList.add(buildItem(i));
     }
 
-    return RadioGroup<T?>(
-      onChanged: (value) {
-        widget.onChanged(value);
-      },
-      groupValue: widget.value,
-      child: switch (widget.orientation) {
-        OptionsOrientation.auto => OverflowBar(
-          alignment: MainAxisAlignment.spaceEvenly,
+    return switch (widget.orientation) {
+      OptionsOrientation.auto => OverflowBar(alignment: MainAxisAlignment.spaceEvenly, children: widgetList),
+      OptionsOrientation.vertical => SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: widgetList),
+      ),
+      OptionsOrientation.horizontal => SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(children: widgetList),
+      ),
+      OptionsOrientation.wrap => SingleChildScrollView(
+        child: Wrap(
+          spacing: widget.wrapSpacing,
+          runSpacing: widget.wrapRunSpacing,
+          textDirection: widget.wrapTextDirection,
+          crossAxisAlignment: widget.wrapCrossAxisAlignment,
+          verticalDirection: widget.wrapVerticalDirection,
+          alignment: widget.wrapAlignment,
+          direction: Axis.horizontal,
+          runAlignment: widget.wrapRunAlignment,
           children: widgetList,
         ),
-        OptionsOrientation.vertical => SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: widgetList,
-          ),
-        ),
-        OptionsOrientation.horizontal => SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(children: widgetList),
-        ),
-        OptionsOrientation.wrap => SingleChildScrollView(
-          child: Wrap(
-            spacing: widget.wrapSpacing,
-            runSpacing: widget.wrapRunSpacing,
-            textDirection: widget.wrapTextDirection,
-            crossAxisAlignment: widget.wrapCrossAxisAlignment,
-            verticalDirection: widget.wrapVerticalDirection,
-            alignment: widget.wrapAlignment,
-            direction: Axis.horizontal,
-            runAlignment: widget.wrapRunAlignment,
-            children: widgetList,
-          ),
-        ),
-      },
-    );
+      ),
+    };
   }
 
   /// the composite of all the components for the option at index
@@ -261,20 +249,22 @@ class _GroupedRadioState<T> extends State<GroupedRadio<T?>> {
     final optionValue = option.value;
     final isOptionDisabled = true == widget.disabled?.contains(optionValue);
     final control = Radio<T?>(
+      groupValue: widget.value,
       activeColor: widget.activeColor,
       focusColor: widget.focusColor,
       hoverColor: widget.hoverColor,
       materialTapTargetSize: widget.materialTapTargetSize,
       value: optionValue,
-      enabled: !isOptionDisabled,
+      onChanged: isOptionDisabled ? null : (val) => widget.onChanged(optionValue),
     );
 
     final label = GestureDetector(
-      onTap: isOptionDisabled
-          ? null
-          : () {
-              widget.onChanged(optionValue);
-            },
+      onTap:
+          isOptionDisabled
+              ? null
+              : () {
+                widget.onChanged(optionValue);
+              },
       child: option,
     );
 
@@ -305,12 +295,8 @@ class _GroupedRadioState<T> extends State<GroupedRadio<T?>> {
       compositeItem = Container(
         decoration: widget.itemDecoration,
         margin: EdgeInsets.only(
-          bottom: widget.orientation == OptionsOrientation.vertical
-              ? widget.wrapSpacing
-              : 0.0,
-          right: widget.orientation == OptionsOrientation.horizontal
-              ? widget.wrapSpacing
-              : 0.0,
+          bottom: widget.orientation == OptionsOrientation.vertical ? widget.wrapSpacing : 0.0,
+          right: widget.orientation == OptionsOrientation.horizontal ? widget.wrapSpacing : 0.0,
         ),
         child: compositeItem,
       );

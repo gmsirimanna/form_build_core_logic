@@ -50,8 +50,6 @@ class FormBuilderField<T> extends FormField<T> {
     super.validator,
     super.restorationId,
     required super.builder,
-    super.errorBuilder,
-    super.onReset,
     required this.name,
     this.valueTransformer,
     this.onChanged,
@@ -63,8 +61,7 @@ class FormBuilderField<T> extends FormField<T> {
       FormBuilderFieldState<FormBuilderField<T>, T>();
 }
 
-class FormBuilderFieldState<F extends FormBuilderField<T>, T>
-    extends FormFieldState<T> {
+class FormBuilderFieldState<F extends FormBuilderField<T>, T> extends FormFieldState<T> {
   String? _customErrorText;
   FormBuilderState? _formBuilderState;
   bool _touched = false;
@@ -87,12 +84,9 @@ class FormBuilderFieldState<F extends FormBuilderField<T>, T>
   /// initialValue prevails.
   T? get initialValue =>
       widget.initialValue ??
-      (_formBuilderState?.initialValue ??
-              const <String, dynamic>{})[widget.name]
-          as T?;
+      (_formBuilderState?.initialValue ?? const <String, dynamic>{})[widget.name] as T?;
 
-  dynamic get transformedValue =>
-      widget.valueTransformer == null ? value : widget.valueTransformer!(value);
+  dynamic get transformedValue => widget.valueTransformer == null ? value : widget.valueTransformer!(value);
 
   @override
   /// Returns the current error text,
@@ -164,8 +158,7 @@ class FormBuilderFieldState<F extends FormBuilderField<T>, T>
     if (widget.focusNode != oldWidget.focusNode) {
       focusAttachment?.detach();
       effectiveFocusNode.removeListener(_touchedHandler);
-      effectiveFocusNode =
-          widget.focusNode ?? FocusNode(canRequestFocus: enabled);
+      effectiveFocusNode = widget.focusNode ?? FocusNode(canRequestFocus: enabled);
       effectiveFocusNode.addListener(_touchedHandler);
       focusAttachment = effectiveFocusNode.attach(context);
     }
@@ -254,8 +247,7 @@ class FormBuilderFieldState<F extends FormBuilderField<T>, T>
     final isValid = super.validate() && !hasError;
 
     final fields =
-        _formBuilderState?.fields ??
-        <String, FormBuilderFieldState<FormBuilderField<dynamic>, dynamic>>{};
+        _formBuilderState?.fields ?? <String, FormBuilderFieldState<FormBuilderField<dynamic>, dynamic>>{};
 
     if (!isValid &&
         focusOnInvalid &&
@@ -281,11 +273,7 @@ class FormBuilderFieldState<F extends FormBuilderField<T>, T>
   /// the form will auto scroll to show this invalid field.
   /// In this case, the automatic scroll happens because is a behavior inside the framework,
   /// not because [shouldAutoScrollWhenFocus] is `true`.
-  void invalidate(
-    String errorText, {
-    bool shouldFocus = true,
-    bool shouldAutoScrollWhenFocus = false,
-  }) {
+  void invalidate(String errorText, {bool shouldFocus = true, bool shouldAutoScrollWhenFocus = false}) {
     setState(() => _customErrorText = errorText);
 
     validate(

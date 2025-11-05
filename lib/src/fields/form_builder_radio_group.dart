@@ -42,9 +42,9 @@ class FormBuilderRadioGroup<T> extends FormBuilderFieldDecoration<T> {
     super.initialValue,
     super.onChanged,
     super.valueTransformer,
-    super.onReset,
+    //super.onReset,
     super.restorationId,
-    super.errorBuilder,
+    //super.errorBuilder,
     this.activeColor,
     this.controlAffinity = ControlAffinity.leading,
     this.disabled,
@@ -77,9 +77,7 @@ class FormBuilderRadioGroup<T> extends FormBuilderFieldDecoration<T> {
                child: GroupedRadio<T>(
                  activeColor: activeColor,
                  controlAffinity: controlAffinity,
-                 disabled: state.enabled
-                     ? disabled
-                     : options.map((option) => option.value).toList(),
+                 disabled: state.enabled ? disabled : options.map((option) => option.value).toList(),
                  focusColor: focusColor,
                  hoverColor: hoverColor,
                  materialTapTargetSize: materialTapTargetSize,
@@ -110,5 +108,4 @@ class FormBuilderRadioGroup<T> extends FormBuilderFieldDecoration<T> {
       _FormBuilderRadioGroupState<T>();
 }
 
-class _FormBuilderRadioGroupState<T>
-    extends FormBuilderFieldDecorationState<FormBuilderRadioGroup<T>, T> {}
+class _FormBuilderRadioGroupState<T> extends FormBuilderFieldDecorationState<FormBuilderRadioGroup<T>, T> {}

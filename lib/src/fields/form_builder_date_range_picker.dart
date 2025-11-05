@@ -7,8 +7,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 /// Field for selecting a range of dates
-class FormBuilderDateRangePicker
-    extends FormBuilderFieldDecoration<DateTimeRange> {
+class FormBuilderDateRangePicker extends FormBuilderFieldDecoration<DateTimeRange> {
   //TODO: Add documentation
   final int maxLines;
   final TextInputType? keyboardType;
@@ -47,8 +46,7 @@ class FormBuilderDateRangePicker
   final String? confirmText; // widget.confirmText,
   final DateTime? currentDate; // widget.currentDate,
   final String? errorFormatText; // widget.erroerrorFormatText,
-  final Widget Function(BuildContext, Widget?)?
-  pickerBuilder; // widget.builder,
+  final Widget Function(BuildContext, Widget?)? pickerBuilder; // widget.builder,
   final String? errorInvalidRangeText; // widget.errorInvalidRangeText,
   final String? errorInvalidText; // widget.errorInvalidText,
   final String? fieldEndHintText; // widget.fieldEndHintText,
@@ -77,10 +75,10 @@ class FormBuilderDateRangePicker
     super.enabled,
     super.onSaved,
     super.autovalidateMode = AutovalidateMode.disabled,
-    super.onReset,
+    //super.onReset,
     super.focusNode,
     super.restorationId,
-    super.errorBuilder,
+    //super.errorBuilder,
     required this.firstDate,
     required this.lastDate,
     this.format,
@@ -180,8 +178,8 @@ class FormBuilderDateRangePicker
        );
 
   @override
-  FormBuilderFieldDecorationState<FormBuilderDateRangePicker, DateTimeRange>
-  createState() => _FormBuilderDateRangePickerState();
+  FormBuilderFieldDecorationState<FormBuilderDateRangePicker, DateTimeRange> createState() =>
+      _FormBuilderDateRangePickerState();
 
   static String tryFormat(DateTime date, intl.DateFormat format) {
     try {
@@ -194,24 +192,16 @@ class FormBuilderDateRangePicker
 }
 
 class _FormBuilderDateRangePickerState
-    extends
-        FormBuilderFieldDecorationState<
-          FormBuilderDateRangePicker,
-          DateTimeRange
-        > {
+    extends FormBuilderFieldDecorationState<FormBuilderDateRangePicker, DateTimeRange> {
   late TextEditingController _effectiveController;
 
   @override
   void initState() {
     super.initState();
-    _effectiveController =
-        widget.controller ?? TextEditingController(text: _valueToText());
+    _effectiveController = widget.controller ?? TextEditingController(text: _valueToText());
 
     effectiveFocusNode.onKeyEvent = (node, event) {
-      if (enabled &&
-          event is KeyDownEvent &&
-          event.logicalKey == LogicalKeyboardKey.space &&
-          node.hasFocus) {
+      if (enabled && event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.space && node.hasFocus) {
         showPicker();
         return KeyEventResult.handled;
       }
@@ -269,10 +259,8 @@ class _FormBuilderDateRangePickerState
     return '${format(value!.start)} - ${format(value!.end)}';
   }
 
-  String format(DateTime date) => FormBuilderDateRangePicker.tryFormat(
-    date,
-    widget.format ?? intl.DateFormat.yMd(),
-  );
+  String format(DateTime date) =>
+      FormBuilderDateRangePicker.tryFormat(date, widget.format ?? intl.DateFormat.yMd());
 
   void _setTextFieldString() {
     setState(() => _effectiveController.text = _valueToText());
@@ -291,17 +279,18 @@ class _FormBuilderDateRangePickerState
   }
 
   @override
-  InputDecoration get decoration => widget.allowClear
-      ? super.decoration.copyWith(
-          suffix: IconButton(
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(maxWidth: 24, maxHeight: 24),
-            onPressed: () {
-              focus();
-              didChange(null);
-            },
-            icon: widget.clearIcon ?? const Icon(Icons.clear),
-          ),
-        )
-      : super.decoration;
+  InputDecoration get decoration =>
+      widget.allowClear
+          ? super.decoration.copyWith(
+            suffix: IconButton(
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(maxWidth: 24, maxHeight: 24),
+              onPressed: () {
+                focus();
+                didChange(null);
+              },
+              icon: widget.clearIcon ?? const Icon(Icons.clear),
+            ),
+          )
+          : super.decoration;
 }

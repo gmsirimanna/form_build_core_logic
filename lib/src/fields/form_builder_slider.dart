@@ -192,10 +192,10 @@ class FormBuilderSlider extends FormBuilderFieldDecoration<double> {
     super.enabled,
     super.onSaved,
     super.autovalidateMode = AutovalidateMode.disabled,
-    super.onReset,
+    //super.onReset,
     super.focusNode,
     super.restorationId,
-    super.errorBuilder,
+    //super.errorBuilder,
     required this.min,
     required this.max,
     this.divisions,
@@ -235,36 +235,28 @@ class FormBuilderSlider extends FormBuilderFieldDecoration<double> {
                      onChangeStart: onChangeStart,
                      label: label,
                      semanticFormatterCallback: semanticFormatterCallback,
-                     onChanged: state.enabled
-                         ? (value) {
-                             field.didChange(value);
-                           }
-                         : null,
+                     onChanged:
+                         state.enabled
+                             ? (value) {
+                               field.didChange(value);
+                             }
+                             : null,
                      autofocus: autofocus,
                      mouseCursor: mouseCursor,
                      focusNode: state.effectiveFocusNode,
                    ),
                    Row(
                      children: <Widget>[
-                       if (displayValues != DisplayValues.none &&
-                           displayValues != DisplayValues.current)
-                         minValueWidget?.call(
-                               effectiveNumberFormat.format(min),
-                             ) ??
+                       if (displayValues != DisplayValues.none && displayValues != DisplayValues.current)
+                         minValueWidget?.call(effectiveNumberFormat.format(min)) ??
                              Text(effectiveNumberFormat.format(min)),
                        const Spacer(),
-                       if (displayValues != DisplayValues.none &&
-                           displayValues != DisplayValues.minMax)
-                         valueWidget?.call(
-                               effectiveNumberFormat.format(field.value),
-                             ) ??
+                       if (displayValues != DisplayValues.none && displayValues != DisplayValues.minMax)
+                         valueWidget?.call(effectiveNumberFormat.format(field.value)) ??
                              Text(effectiveNumberFormat.format(field.value)),
                        const Spacer(),
-                       if (displayValues != DisplayValues.none &&
-                           displayValues != DisplayValues.current)
-                         maxValueWidget?.call(
-                               effectiveNumberFormat.format(max),
-                             ) ??
+                       if (displayValues != DisplayValues.none && displayValues != DisplayValues.current)
+                         maxValueWidget?.call(effectiveNumberFormat.format(max)) ??
                              Text(effectiveNumberFormat.format(max)),
                      ],
                    ),
@@ -276,9 +268,7 @@ class FormBuilderSlider extends FormBuilderFieldDecoration<double> {
        );
 
   @override
-  FormBuilderFieldDecorationState<FormBuilderSlider, double> createState() =>
-      _FormBuilderSliderState();
+  FormBuilderFieldDecorationState<FormBuilderSlider, double> createState() => _FormBuilderSliderState();
 }
 
-class _FormBuilderSliderState
-    extends FormBuilderFieldDecorationState<FormBuilderSlider, double> {}
+class _FormBuilderSliderState extends FormBuilderFieldDecorationState<FormBuilderSlider, double> {}

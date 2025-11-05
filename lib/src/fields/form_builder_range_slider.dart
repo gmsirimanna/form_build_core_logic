@@ -172,9 +172,9 @@ class FormBuilderRangeSlider extends FormBuilderFieldDecoration<RangeValues> {
     super.enabled,
     super.onSaved,
     super.autovalidateMode = AutovalidateMode.disabled,
-    super.onReset,
+    //super.onReset,
     super.focusNode,
-    super.errorBuilder,
+    //super.errorBuilder,
     required this.min,
     required this.max,
     this.divisions,
@@ -201,9 +201,7 @@ class FormBuilderRangeSlider extends FormBuilderFieldDecoration<RangeValues> {
              if (initialValue == null) {
                field.setValue(RangeValues(min, min));
              } else {
-               field.setValue(
-                 RangeValues(initialValue.start, initialValue.end),
-               );
+               field.setValue(RangeValues(initialValue.start, initialValue.end));
              }
            }
            // TODO: Solve focus issue when Flutter team solve this issue
@@ -232,23 +230,20 @@ class FormBuilderRangeSlider extends FormBuilderFieldDecoration<RangeValues> {
                        onChangeStart: onChangeStart,
                        labels: labels,
                        semanticFormatterCallback: semanticFormatterCallback,
-                       onChanged: state.enabled
-                           ? (values) {
-                               field.didChange(values);
-                             }
-                           : null,
+                       onChanged:
+                           state.enabled
+                               ? (values) {
+                                 field.didChange(values);
+                               }
+                               : null,
                      ),
                      Row(
                        children: <Widget>[
-                         if (displayValues != DisplayValues.none &&
-                             displayValues != DisplayValues.current)
-                           minValueWidget?.call(
-                                 effectiveNumberFormat.format(min),
-                               ) ??
+                         if (displayValues != DisplayValues.none && displayValues != DisplayValues.current)
+                           minValueWidget?.call(effectiveNumberFormat.format(min)) ??
                                Text(effectiveNumberFormat.format(min)),
                          const Spacer(),
-                         if (displayValues != DisplayValues.none &&
-                             displayValues != DisplayValues.minMax)
+                         if (displayValues != DisplayValues.none && displayValues != DisplayValues.minMax)
                            valueWidget?.call(
                                  '${effectiveNumberFormat.format(field.value!.start)} - ${effectiveNumberFormat.format(field.value!.end)}',
                                ) ??
@@ -256,11 +251,8 @@ class FormBuilderRangeSlider extends FormBuilderFieldDecoration<RangeValues> {
                                  '${effectiveNumberFormat.format(field.value!.start)} - ${effectiveNumberFormat.format(field.value!.end)}',
                                ),
                          const Spacer(),
-                         if (displayValues != DisplayValues.none &&
-                             displayValues != DisplayValues.current)
-                           maxValueWidget?.call(
-                                 effectiveNumberFormat.format(max),
-                               ) ??
+                         if (displayValues != DisplayValues.none && displayValues != DisplayValues.current)
+                           maxValueWidget?.call(effectiveNumberFormat.format(max)) ??
                                Text(effectiveNumberFormat.format(max)),
                        ],
                      ),
@@ -273,10 +265,9 @@ class FormBuilderRangeSlider extends FormBuilderFieldDecoration<RangeValues> {
        );
 
   @override
-  FormBuilderFieldDecorationState<FormBuilderRangeSlider, RangeValues>
-  createState() => _FormBuilderRangeSliderState();
+  FormBuilderFieldDecorationState<FormBuilderRangeSlider, RangeValues> createState() =>
+      _FormBuilderRangeSliderState();
 }
 
 class _FormBuilderRangeSliderState
-    extends
-        FormBuilderFieldDecorationState<FormBuilderRangeSlider, RangeValues> {}
+    extends FormBuilderFieldDecorationState<FormBuilderRangeSlider, RangeValues> {}

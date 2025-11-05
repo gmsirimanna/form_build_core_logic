@@ -138,10 +138,10 @@ class FormBuilderDateTimePicker extends FormBuilderFieldDecoration<DateTime> {
     super.enabled,
     super.onSaved,
     super.autovalidateMode = AutovalidateMode.disabled,
-    super.onReset,
+    //super.onReset,
     super.focusNode,
     super.restorationId,
-    super.errorBuilder,
+    //super.errorBuilder,
     this.inputType = InputType.both,
     this.scrollPadding = const EdgeInsets.all(20.0),
     this.cursorWidth = 2.0,
@@ -243,13 +243,12 @@ class FormBuilderDateTimePicker extends FormBuilderFieldDecoration<DateTime> {
        );
 
   @override
-  FormBuilderFieldDecorationState<FormBuilderDateTimePicker, DateTime>
-  createState() => _FormBuilderDateTimePickerState();
+  FormBuilderFieldDecorationState<FormBuilderDateTimePicker, DateTime> createState() =>
+      _FormBuilderDateTimePickerState();
 }
 
 class _FormBuilderDateTimePickerState
-    extends
-        FormBuilderFieldDecorationState<FormBuilderDateTimePicker, DateTime> {
+    extends FormBuilderFieldDecorationState<FormBuilderDateTimePicker, DateTime> {
   late TextEditingController _textFieldController;
 
   late DateFormat _dateFormat;
@@ -261,9 +260,7 @@ class _FormBuilderDateTimePickerState
     _dateFormat = widget.format ?? _getDefaultDateTimeFormat();
     //setting this to value instead of initialValue here is OK since we handle initial value in the parent class
     final initVal = value;
-    _textFieldController.text = initVal == null
-        ? ''
-        : _dateFormat.format(initVal);
+    _textFieldController.text = initVal == null ? '' : _dateFormat.format(initVal);
 
     effectiveFocusNode.onKeyEvent = (node, event) {
       if (event is KeyDownEvent &&
@@ -366,18 +363,14 @@ class _FormBuilderDateTimePickerState
         return Localizations.override(
           context: context,
           locale: widget.locale,
-          child: transitionBuilder == null
-              ? child
-              : transitionBuilder(context, child),
+          child: transitionBuilder == null ? child : transitionBuilder(context, child),
         );
       };
     }
 
     return await showTimePicker(
       context: context,
-      initialTime: currentValue != null
-          ? TimeOfDay.fromDateTime(currentValue)
-          : widget.initialTime,
+      initialTime: currentValue != null ? TimeOfDay.fromDateTime(currentValue) : widget.initialTime,
       builder: builder,
       useRootNavigator: widget.useRootNavigator,
       routeSettings: widget.routeSettings,
@@ -393,22 +386,14 @@ class _FormBuilderDateTimePickerState
   }
 
   /// Sets the hour and minute of a [DateTime] from a [TimeOfDay].
-  DateTime combine(DateTime date, TimeOfDay? time) => DateTime(
-    date.year,
-    date.month,
-    date.day,
-    time?.hour ?? 0,
-    time?.minute ?? 0,
-  );
+  DateTime combine(DateTime date, TimeOfDay? time) =>
+      DateTime(date.year, date.month, date.day, time?.hour ?? 0, time?.minute ?? 0);
 
-  DateTime? convert(TimeOfDay? time) =>
-      time == null ? null : DateTime(1, 1, 1, time.hour, time.minute);
+  DateTime? convert(TimeOfDay? time) => time == null ? null : DateTime(1, 1, 1, time.hour, time.minute);
 
   @override
   void didChange(DateTime? value) {
     super.didChange(value);
-    _textFieldController.text = (value == null)
-        ? ''
-        : _dateFormat.format(value);
+    _textFieldController.text = (value == null) ? '' : _dateFormat.format(value);
   }
 }

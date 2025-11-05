@@ -42,10 +42,10 @@ class FormBuilderCheckboxGroup<T> extends FormBuilderFieldDecoration<List<T>> {
     super.enabled,
     super.onSaved,
     super.autovalidateMode = AutovalidateMode.disabled,
-    super.onReset,
+    // //super.onReset,
     super.focusNode,
     super.restorationId,
-    super.errorBuilder,
+    // //super.errorBuilder,
     required this.options,
     this.activeColor,
     this.checkColor,
@@ -85,9 +85,7 @@ class FormBuilderCheckboxGroup<T> extends FormBuilderFieldDecoration<List<T>> {
                  onChanged: (val) {
                    field.didChange(val);
                  },
-                 disabled: state.enabled
-                     ? disabled
-                     : options.map((e) => e.value).toList(),
+                 disabled: state.enabled ? disabled : options.map((e) => e.value).toList(),
                  activeColor: activeColor,
                  visualDensity: visualDensity,
                  focusColor: focusColor,
@@ -113,10 +111,9 @@ class FormBuilderCheckboxGroup<T> extends FormBuilderFieldDecoration<List<T>> {
        );
 
   @override
-  FormBuilderFieldDecorationState<FormBuilderCheckboxGroup<T>, List<T>>
-  createState() => _FormBuilderCheckboxGroupState<T>();
+  FormBuilderFieldDecorationState<FormBuilderCheckboxGroup<T>, List<T>> createState() =>
+      _FormBuilderCheckboxGroupState<T>();
 }
 
 class _FormBuilderCheckboxGroupState<T>
-    extends
-        FormBuilderFieldDecorationState<FormBuilderCheckboxGroup<T>, List<T>> {}
+    extends FormBuilderFieldDecorationState<FormBuilderCheckboxGroup<T>, List<T>> {}

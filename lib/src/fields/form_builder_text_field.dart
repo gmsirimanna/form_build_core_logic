@@ -375,11 +375,11 @@ class FormBuilderTextField extends FormBuilderFieldDecoration<String> {
     super.enabled,
     super.onSaved,
     super.autovalidateMode = AutovalidateMode.disabled,
-    super.onReset,
+    //super.onReset,
     super.focusNode,
     super.restorationId,
     String? initialValue,
-    super.errorBuilder,
+    //super.errorBuilder,
     this.readOnly = false,
     this.maxLines = 1,
     this.obscureText = false,
@@ -445,8 +445,7 @@ class FormBuilderTextField extends FormBuilderFieldDecoration<String> {
       'This feature was deprecated after v3.27.0-0.2.pre.',
     )
     this.scribbleEnabled = true,
-    this.stylusHandwritingEnabled =
-        EditableText.defaultStylusHandwritingEnabled,
+    this.stylusHandwritingEnabled = EditableText.defaultStylusHandwritingEnabled,
     this.selectionControls,
     this.statesController,
     this.undoController,
@@ -461,10 +460,7 @@ class FormBuilderTextField extends FormBuilderFieldDecoration<String> {
          !expands || (minLines == null && maxLines == null),
          'minLines and maxLines must be null when expands is true.',
        ),
-       assert(
-         !obscureText || maxLines == 1,
-         'Obscured fields cannot be multiline.',
-       ),
+       assert(!obscureText || maxLines == 1, 'Obscured fields cannot be multiline.'),
        assert(maxLength == null || maxLength > 0),
        super(
          initialValue: controller != null ? controller.text : initialValue,
@@ -539,24 +535,16 @@ class FormBuilderTextField extends FormBuilderFieldDecoration<String> {
          },
        );
 
-  static Widget _defaultContextMenuBuilder(
-    BuildContext context,
-    EditableTextState editableTextState,
-  ) {
-    return AdaptiveTextSelectionToolbar.editableText(
-      editableTextState: editableTextState,
-    );
+  static Widget _defaultContextMenuBuilder(BuildContext context, EditableTextState editableTextState) {
+    return AdaptiveTextSelectionToolbar.editableText(editableTextState: editableTextState);
   }
 
   @override
-  FormBuilderFieldDecorationState<FormBuilderTextField, String> createState() =>
-      _FormBuilderTextFieldState();
+  FormBuilderFieldDecorationState<FormBuilderTextField, String> createState() => _FormBuilderTextFieldState();
 }
 
-class _FormBuilderTextFieldState
-    extends FormBuilderFieldDecorationState<FormBuilderTextField, String> {
-  TextEditingController? get _effectiveController =>
-      widget.controller ?? _controller;
+class _FormBuilderTextFieldState extends FormBuilderFieldDecorationState<FormBuilderTextField, String> {
+  TextEditingController? get _effectiveController => widget.controller ?? _controller;
 
   TextEditingController? _controller;
 

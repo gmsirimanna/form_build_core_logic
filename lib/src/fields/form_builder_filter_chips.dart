@@ -46,7 +46,7 @@ class FormBuilderFilterChips<T> extends FormBuilderFieldDecoration<List<T>> {
     super.initialValue,
     required super.name,
     super.restorationId,
-    super.errorBuilder,
+    //super.errorBuilder,
     required this.options,
     this.alignment = WrapAlignment.start,
     this.avatarBorder = const CircleBorder(),
@@ -76,7 +76,7 @@ class FormBuilderFilterChips<T> extends FormBuilderFieldDecoration<List<T>> {
     this.verticalDirection = VerticalDirection.down,
     super.onChanged,
     super.valueTransformer,
-    super.onReset,
+    //super.onReset,
   }) : assert((maxChips == null) || ((initialValue ?? []).length <= maxChips)),
        super(
          builder: (FormFieldState<List<T>?> field) {
@@ -107,18 +107,18 @@ class FormBuilderFilterChips<T> extends FormBuilderFieldDecoration<List<T>> {
                        avatar: option.avatar,
                        onSelected:
                            state.enabled &&
-                               (null == maxChips ||
-                                   fieldValue.length < maxChips ||
-                                   fieldValue.contains(option.value))
-                           ? (selected) {
-                               final currentValue = [...fieldValue];
-                               selected
-                                   ? currentValue.add(option.value)
-                                   : currentValue.remove(option.value);
+                                   (null == maxChips ||
+                                       fieldValue.length < maxChips ||
+                                       fieldValue.contains(option.value))
+                               ? (selected) {
+                                 final currentValue = [...fieldValue];
+                                 selected
+                                     ? currentValue.add(option.value)
+                                     : currentValue.remove(option.value);
 
-                               field.didChange(currentValue);
-                             }
-                           : null,
+                                 field.didChange(currentValue);
+                               }
+                               : null,
                        selectedColor: selectedColor,
                        disabledColor: disabledColor,
                        backgroundColor: backgroundColor,
@@ -145,10 +145,9 @@ class FormBuilderFilterChips<T> extends FormBuilderFieldDecoration<List<T>> {
        );
 
   @override
-  FormBuilderFieldDecorationState<FormBuilderFilterChips<T>, List<T>>
-  createState() => _FormBuilderFilterChipState<T>();
+  FormBuilderFieldDecorationState<FormBuilderFilterChips<T>, List<T>> createState() =>
+      _FormBuilderFilterChipState<T>();
 }
 
 class _FormBuilderFilterChipState<T>
-    extends
-        FormBuilderFieldDecorationState<FormBuilderFilterChips<T>, List<T>> {}
+    extends FormBuilderFieldDecorationState<FormBuilderFilterChips<T>, List<T>> {}
