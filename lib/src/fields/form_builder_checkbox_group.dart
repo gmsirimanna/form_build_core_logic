@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:custom_form_builder/flutter_form_builder.dart';
 
 /// A list of Checkboxes for selecting multiple options
 class FormBuilderCheckboxGroup<T> extends FormBuilderFieldDecoration<List<T>> {

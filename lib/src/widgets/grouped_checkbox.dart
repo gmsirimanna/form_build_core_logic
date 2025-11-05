@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:custom_form_builder/flutter_form_builder.dart';
 
 class GroupedCheckbox<T> extends StatelessWidget {
   /// A list of string that describes each checkbox. Each item must be distinct.
@@ -228,23 +228,18 @@ class GroupedCheckbox<T> extends StatelessWidget {
     }
 
     return switch (orientation) {
-      OptionsOrientation.auto => OverflowBar(
-        alignment: MainAxisAlignment.spaceEvenly,
-        children: widgetList,
-      ),
+      OptionsOrientation.auto => OverflowBar(alignment: MainAxisAlignment.spaceEvenly, children: widgetList),
       OptionsOrientation.vertical => SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: widgetList,
-        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: widgetList),
       ),
       OptionsOrientation.horizontal => SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: widgetList.map((item) {
-            return Column(children: <Widget>[item]);
-          }).toList(),
+          children:
+              widgetList.map((item) {
+                return Column(children: <Widget>[item]);
+              }).toList(),
         ),
       ),
       OptionsOrientation.wrap => SingleChildScrollView(
@@ -275,30 +270,28 @@ class GroupedCheckbox<T> extends StatelessWidget {
       focusColor: focusColor,
       hoverColor: hoverColor,
       materialTapTargetSize: materialTapTargetSize,
-      value: tristate
-          ? value?.contains(optionValue)
-          : true == value?.contains(optionValue),
+      value: tristate ? value?.contains(optionValue) : true == value?.contains(optionValue),
       tristate: tristate,
-      onChanged: isOptionDisabled
-          ? null
-          : (selected) {
-              List<T> selectedListItems = value == null ? [] : List.of(value!);
-              selected!
-                  ? selectedListItems.add(optionValue)
-                  : selectedListItems.remove(optionValue);
-              onChanged(selectedListItems);
-            },
+      onChanged:
+          isOptionDisabled
+              ? null
+              : (selected) {
+                List<T> selectedListItems = value == null ? [] : List.of(value!);
+                selected! ? selectedListItems.add(optionValue) : selectedListItems.remove(optionValue);
+                onChanged(selectedListItems);
+              },
     );
     final label = GestureDetector(
-      onTap: isOptionDisabled
-          ? null
-          : () {
-              List<T> selectedListItems = value == null ? [] : List.of(value!);
-              selectedListItems.contains(optionValue)
-                  ? selectedListItems.remove(optionValue)
-                  : selectedListItems.add(optionValue);
-              onChanged(selectedListItems);
-            },
+      onTap:
+          isOptionDisabled
+              ? null
+              : () {
+                List<T> selectedListItems = value == null ? [] : List.of(value!);
+                selectedListItems.contains(optionValue)
+                    ? selectedListItems.remove(optionValue)
+                    : selectedListItems.add(optionValue);
+                onChanged(selectedListItems);
+              },
       child: option,
     );
 
@@ -318,9 +311,7 @@ class GroupedCheckbox<T> extends StatelessWidget {
               separator!,
           ],
         ),
-        if (orientation == OptionsOrientation.vertical &&
-            separator != null &&
-            index != options.length - 1)
+        if (orientation == OptionsOrientation.vertical && separator != null && index != options.length - 1)
           separator!,
       ],
     );
@@ -329,12 +320,8 @@ class GroupedCheckbox<T> extends StatelessWidget {
       compositeItem = Container(
         decoration: itemDecoration,
         margin: EdgeInsets.only(
-          bottom: orientation == OptionsOrientation.vertical
-              ? wrapSpacing
-              : 0.0,
-          right: orientation == OptionsOrientation.horizontal
-              ? wrapSpacing
-              : 0.0,
+          bottom: orientation == OptionsOrientation.vertical ? wrapSpacing : 0.0,
+          right: orientation == OptionsOrientation.horizontal ? wrapSpacing : 0.0,
         ),
         child: compositeItem,
       );

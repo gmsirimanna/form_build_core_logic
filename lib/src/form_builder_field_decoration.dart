@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:custom_form_builder/flutter_form_builder.dart';
 
 /// Extends [FormBuilderField] and add a `decoration` (InputDecoration) property
 ///

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:custom_form_builder/flutter_form_builder.dart';
 
 /// An option for filter chips.
 ///
@@ -10,12 +10,7 @@ class FormBuilderChipOption<T> extends FormBuilderFieldOption<T> {
   final Widget? avatar;
 
   /// Creates an option for fields with selection options
-  const FormBuilderChipOption({
-    super.key,
-    required super.value,
-    this.avatar,
-    super.child,
-  });
+  const FormBuilderChipOption({super.key, required super.value, this.avatar, super.child});
 
   @override
   Widget build(BuildContext context) {

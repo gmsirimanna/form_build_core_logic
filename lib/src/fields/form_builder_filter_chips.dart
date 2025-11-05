@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:custom_form_builder/flutter_form_builder.dart';
 
 /// Field with chips that acts like a list checkboxes.
 class FormBuilderFilterChips<T> extends FormBuilderFieldDecoration<List<T>> {

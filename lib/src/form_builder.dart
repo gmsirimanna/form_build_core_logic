@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_form_builder/src/extensions/autovalidatemode_extension.dart';
+import 'package:custom_form_builder/flutter_form_builder.dart';
+import 'package:custom_form_builder/src/extensions/autovalidatemode_extension.dart';
 
 /// A container for form fields.
 class FormBuilder extends StatefulWidget {
@@ -110,16 +110,14 @@ class FormBuilder extends StatefulWidget {
     this.canPop,
   });
 
-  static FormBuilderState? of(BuildContext context) =>
-      context.findAncestorStateOfType<FormBuilderState>();
+  static FormBuilderState? of(BuildContext context) => context.findAncestorStateOfType<FormBuilderState>();
 
   @override
   FormBuilderState createState() => FormBuilderState();
 }
 
 /// A type alias for a map of form fields.
-typedef FormBuilderFields =
-    Map<String, FormBuilderFieldState<FormBuilderField<dynamic>, dynamic>>;
+typedef FormBuilderFields = Map<String, FormBuilderFieldState<FormBuilderField<dynamic>, dynamic>>;
 
 class FormBuilderState extends State<FormBuilder> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -153,9 +151,7 @@ class FormBuilderState extends State<FormBuilder> {
 
   /// Get a map of errors
   Map<String, String> get errors => {
-    for (var element in fields.entries.where(
-      (element) => element.value.hasError,
-    ))
+    for (var element in fields.entries.where((element) => element.value.hasError))
       element.key.toString(): element.value.errorText ?? '',
   };
 
@@ -168,20 +164,14 @@ class FormBuilderState extends State<FormBuilder> {
   /// Get all fields values of form.
   Map<String, dynamic> get instantValue => Map<String, dynamic>.unmodifiable(
     _instantValue.map(
-      (key, value) => MapEntry(
-        key,
-        _transformers[key] == null ? value : _transformers[key]!(value),
-      ),
+      (key, value) => MapEntry(key, _transformers[key] == null ? value : _transformers[key]!(value)),
     ),
   );
 
   /// Returns the saved value only
   Map<String, dynamic> get value => Map<String, dynamic>.unmodifiable(
     _savedValue.map(
-      (key, value) => MapEntry(
-        key,
-        _transformers[key] == null ? value : _transformers[key]!(value),
-      ),
+      (key, value) => MapEntry(key, _transformers[key] == null ? value : _transformers[key]!(value)),
     ),
   );
 
@@ -195,8 +185,7 @@ class FormBuilderState extends State<FormBuilder> {
   }
 
   T? getRawValue<T>(String name, {bool fromSaved = false}) {
-    return (fromSaved ? _savedValue[name] : _instantValue[name]) ??
-        initialValue[name];
+    return (fromSaved ? _savedValue[name] : _instantValue[name]) ?? initialValue[name];
   }
 
   /// Get a field value by name
@@ -290,16 +279,11 @@ class FormBuilderState extends State<FormBuilder> {
   /// the form will auto scroll to show this invalid field.
   /// In this case, the automatic scroll happens because is a behavior inside the framework,
   /// not because [autoScrollWhenFocusOnInvalid] is `true`.
-  bool validate({
-    bool focusOnInvalid = true,
-    bool autoScrollWhenFocusOnInvalid = false,
-  }) {
+  bool validate({bool focusOnInvalid = true, bool autoScrollWhenFocusOnInvalid = false}) {
     _focusOnInvalid = focusOnInvalid;
     final hasError = !_formKey.currentState!.validate();
     if (hasError) {
-      final wrongFields = fields.values
-          .where((element) => element.hasError)
-          .toList();
+      final wrongFields = fields.values.where((element) => element.hasError).toList();
       if (wrongFields.isNotEmpty) {
         if (focusOnInvalid) {
           wrongFields.first.focus();
@@ -324,10 +308,7 @@ class FormBuilderState extends State<FormBuilder> {
   /// the form will auto scroll to show this invalid field.
   /// In this case, the automatic scroll happens because is a behavior inside the framework,
   /// not because [autoScrollWhenFocusOnInvalid] is `true`.
-  bool saveAndValidate({
-    bool focusOnInvalid = true,
-    bool autoScrollWhenFocusOnInvalid = false,
-  }) {
+  bool saveAndValidate({bool focusOnInvalid = true, bool autoScrollWhenFocusOnInvalid = false}) {
     save();
     return validate(
       focusOnInvalid: focusOnInvalid,
@@ -370,19 +351,14 @@ class FormBuilderState extends State<FormBuilder> {
       onPopInvokedWithResult: widget.onPopInvokedWithResult,
       canPop: widget.canPop,
       // `onChanged` is called during setInternalFieldValue else will be called early
-      child: _FormBuilderScope(
-        formState: this,
-        child: FocusTraversalGroup(child: widget.child),
-      ),
+      child: _FormBuilderScope(formState: this, child: FocusTraversalGroup(child: widget.child)),
     );
   }
 }
 
 class _FormBuilderScope extends InheritedWidget {
-  const _FormBuilderScope({
-    required super.child,
-    required FormBuilderState formState,
-  }) : _formState = formState;
+  const _FormBuilderScope({required super.child, required FormBuilderState formState})
+    : _formState = formState;
 
   final FormBuilderState _formState;
 
@@ -390,6 +366,5 @@ class _FormBuilderScope extends InheritedWidget {
   FormBuilder get form => _formState.widget;
 
   @override
-  bool updateShouldNotify(_FormBuilderScope oldWidget) =>
-      oldWidget._formState != _formState;
+  bool updateShouldNotify(_FormBuilderScope oldWidget) => oldWidget._formState != _formState;
 }
