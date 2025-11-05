@@ -57,9 +57,9 @@
     },
     {
       "name": "intl",
-      "rootUri": "file:///Users/gayansirimanna/.pub-cache/hosted/pub.dev/intl-0.20.2",
+      "rootUri": "file:///Users/gayansirimanna/.pub-cache/hosted/pub.dev/intl-0.19.0",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.0"
     },
     {
       "name": "leak_tracker",
@@ -170,7 +170,7 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-11-05T04:17:01.997645Z",
+  "generated": "2025-11-05T04:18:57.405667Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///Users/gayansirimanna/VEGA/SDK/flutter",
